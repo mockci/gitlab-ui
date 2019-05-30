@@ -1,17 +1,16 @@
-import Toasted from '@gitlab/vue-toasted';
+import { ToastPlugin } from 'bootstrap-vue';
 
 const DEFAULT_OPTIONS = {
-  action: {
-    text: '×',
-    class: 'font-weight-light text-white text-decoration-none toast-close',
-    onClick: (e, toastObject) => toastObject.goAway(0),
-  },
-  iconPack: 'custom-class',
+  autoHideDelay: 5000,
+  toastClass: 'gl-toast',
   position: 'bottom-left',
-  duration: 5000,
-  singleton: true,
-  className: 'gl-toast',
-  keepOnHover: true,
+};
+
+const getToastOptions = opts => {
+  const options = { ...DEFAULT_OPTIONS, ...opts };
+  const { position, ...toastOptions } = options;
+  toastOptions.toaster = `b-toaster-${position}`;
+  return toastOptions;
 };
 
 /**
@@ -22,23 +21,39 @@ const DEFAULT_OPTIONS = {
  */
 export default {
   install(Vue) {
-    /* eslint-disable no-param-reassign */
-    Vue.use(Toasted, DEFAULT_OPTIONS);
+    Vue.use(ToastPlugin);
 
-    Vue.prototype.$toast = {
-      show: (message, options = {}) =>
-        Vue.toasted.show(`<span>${message}</span>`, this.generateOptions(options)),
-    };
-  },
-  generateOptions(options) {
-    const updatedOptions = { ...DEFAULT_OPTIONS, ...options };
+    Vue.mixin({
+      beforeCreate() {
+        if (this.$toast) {
+          return;
+        }
+        this.$toast = {
+          show: (message, options = {}) => {
+            const renderTitle = () => {
+              if (!options.action) {
+                return null;
+              }
+              const h = this.$createElement;
+              return h(
+                'button',
+                {
+                  class: ['action', 'ripple'],
+                  on: {
+                    click: options.action.onClick,
+                  },
+                },
+                options.action.text
+              );
+            };
 
-    // ensures only one extra action can be added
-    // ensures toasts always have a close/dismiss button
-    if (options.action) {
-      updatedOptions.action = [options.action, DEFAULT_OPTIONS.action];
-    }
-
-    return updatedOptions;
+            this.$bvToast.toast(message, {
+              ...getToastOptions(options),
+              title: renderTitle(),
+            });
+          },
+        };
+      },
+    });
   },
 };

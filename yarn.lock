@@ -800,11 +800,6 @@
   resolved "https://registry.yarnpkg.com/@gitlab/svgs/-/svgs-1.79.0.tgz#7e79666118d6adc0247bdb3b3b6b2b299aa5a439"
   integrity sha512-0pTUviQqwyaKBOB6OL7Mmr2dQn/dGB03XslBMtL9lFZz1baB7d6xf+zxFU0GBAJUJan397IbBddE1jjUAQT8Fw==
 
-"@gitlab/vue-toasted@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@gitlab/vue-toasted/-/vue-toasted-1.2.1.tgz#f407b5aa710863e5b7f021f4a1f66160331ab263"
-  integrity sha512-ve2PLxKqrwNpsd+4bV5zGJT5+H5N/VJBZoFS2Vp1mH5cUDBYIHTzDmbS6AbBGUDh0F3TxmFMiqfXfpO/1VjBNQ==
-
 "@hapi/address@2.x.x":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.2.tgz#1c794cd6dbf2354d1eb1ef10e0303f573e1c7222"

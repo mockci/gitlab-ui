@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "@babel/standalone": "^7.0.0",
-    "@gitlab/vue-toasted": "^1.2.1",
     "bootstrap-vue": "2.0.0-rc.27",
     "copy-to-clipboard": "^3.0.8",
     "echarts": "^4.2.1",
