@@ -42,6 +42,13 @@ describe('loading icon component', () => {
       expect(spinnerClasses).toContain(baseCssClass);
     });
 
+    it('should render the "md" size by default', () => {
+      createComponent();
+      const spinnerClasses = getSpinnerClasses();
+
+      expect(spinnerClasses).toContain(`${baseCssClass}-md`);
+    });
+
     it.each(supportedSizes)('should render spinner properly for size %s', size => {
       createComponent({ size });
       const spinnerClasses = getSpinnerClasses();
@@ -112,7 +119,7 @@ describe('loading icon component', () => {
 
       // default size as fallback
       expect(spinnerClasses).toContain(baseCssClass);
-      expect(spinnerClasses).toContain(`${baseCssClass}-sm`);
+      expect(spinnerClasses).toContain(`${baseCssClass}-md`);
 
       global.console.error.mockReset();
     });

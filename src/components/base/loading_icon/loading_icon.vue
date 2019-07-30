@@ -17,7 +17,7 @@ const colors = {
   dark: 'dark',
   light: 'light',
 };
-const defaultSize = sizes.sm;
+const defaultSize = sizes.md;
 const defaultColor = colors.orange;
 
 const baseCssClass = 'gl-spinner';
