@@ -1,6 +1,8 @@
 variables:
   PUPPETEER_VERSION: '2.1.1'
-  PUPPETEER_IMAGE: $CI_REGISTRY_IMAGE/puppeteer:$PUPPETEER_VERSION
+  # TODO: Remove CI_COMMIT_SHORT_SHA again, just a temporary measure to enforce builds
+  PUPPETEER_CHROME_IMAGE: $CI_REGISTRY_IMAGE/puppeteer-chrome:$PUPPETEER_VERSION-$CI_COMMIT_SHORT_SHA
+  PUPPETEER_FIREFOX_IMAGE: $CI_REGISTRY_IMAGE/puppeteer-firefox:$PUPPETEER_VERSION-$CI_COMMIT_SHORT_SHA
   DANGER_GITLAB_API_TOKEN: $GITLAB_TOKEN
 
 include:
@@ -17,8 +19,12 @@ stages:
   - publish
   - manual
 
-.puppeteer:
-  image: $PUPPETEER_IMAGE
+.puppeteer-chrome:
+  image: $PUPPETEER_CHROME_IMAGE
+  needs: ['build_docker_image']
+
+.puppeteer-firefox:
+  image: $PUPPETEER_FIREFOX_IMAGE
   needs: ['build_docker_image']
 
 .node:
@@ -118,22 +124,36 @@ generate_utility_classes:
   script:
     - yarn generate-utilities
 
-visual:
-  extends: [.puppeteer, .yarn_install]
+.visual:
+  extends: .yarn_install
   tags:
     - gitlab-org # This allows us to use higher performance runners
   needs:
     - build_docker_image
   stage: test
-  script:
-    - yarn test:visual
   artifacts:
     when: always
     paths:
       - tests/__image_snapshots__/
+      - tests/__image_snapshots_firefox__/
 
-visual_gitlab_integration:
-  extends: visual
+chrome:visual:
+  extends: [.puppeteer-chrome, .visual]
+  script:
+    - yarn test:visual
+
+chrome:visual_gitlab_integration:
+  extends: [.puppeteer-chrome, .visual]
+  script:
+    - yarn test:visual:gitlab
+
+firefox:visual:
+  extends: [.puppeteer-firefox, .visual]
+  script:
+    - yarn test:visual
+
+firefox:visual_gitlab_integration:
+  extends: [.puppeteer-firefox, .visual]
   script:
     - yarn test:visual:gitlab
 
@@ -144,8 +164,8 @@ unit_tests:
   script:
     - yarn test:unit
 
-update_screenshots:
-  extends: [.puppeteer, .yarn_install]
+.update_screenshots:
+  extends: [.yarn_install]
   tags:
     - gitlab-org # This allows us to use higher performance runners
   stage: manual
@@ -157,6 +177,12 @@ update_screenshots:
     - git add .
     - "git commit -m 'chore: update snapshots'"
     - git push https://gitlab-bot:$GITLAB_TOKEN@gitlab.com/gitlab-org/gitlab-ui.git HEAD:$CI_COMMIT_REF_NAME &>/dev/null
+
+chrome:update_screenshots:
+  extends: [.puppeteer-chrome, .update_screenshots]
+
+firefox:update_screenshots:
+  extends: [.puppeteer-firefox, .update_screenshots]
 
 review:
   stage: deploy

@@ -3,6 +3,7 @@
 /storybook/
 /.storybook/preview-head.html
 /tests/__image_snapshots__/__diff_output__/
+/tests/__image_snapshots_firefox__/__diff_output__/
 /scss_to_js/scss_variables.*
 .idea
 .vscode

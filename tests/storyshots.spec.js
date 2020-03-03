@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import path from 'path';
 import initStoryshots from '@storybook/addon-storyshots';
 import { imageSnapshot } from '@storybook/addon-storyshots-puppeteer';
 import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
@@ -35,21 +36,50 @@ const getGotoOptions = () => ({
 const failureThreshold =
   'FAILURE_THRESHOLD' in process.env ? parseFloat(process.env.FAILURE_THRESHOLD) : 0;
 
-const getMatchOptions = () => ({
-  failureThreshold,
-  failureThresholdType: 'percent',
-});
+const browserName = process.env.PUPPETEER_BROWSER || 'chrome';
+
+const isChrome = browserName === 'chrome';
+const isFirefox = browserName === 'firefox';
+
+const customSnapshotsDir = path.join(
+  __dirname,
+  isChrome ? '__image_snapshots__' : `__image_snapshots_${browserName}__`
+);
+
+const getMatchOptions = () => {
+  return {
+    customSnapshotsDir,
+    failureThreshold,
+    failureThresholdType: 'percent',
+  };
+};
 
 let browser;
 
+const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+
 async function getCustomBrowser() {
-  browser = await puppeteer.launch({
-    args: ['--no-sandbox ', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  });
+
+  console.log(`Launching ${browserName} from ${executablePath}`)
+
+  if (isChrome) {
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox ', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+      product: 'chrome',
+      executablePath,
+    });
+  } else if (isFirefox) {
+    browser = await puppeteer.launch({
+      product: 'firefox',
+      executablePath,
+    });
+  } else {
+    throw new Error(`Unknown browser ${browserName}`);
+  }
 
   const version = await browser.version();
 
-  console.log(`Successfully launched browser ${version}`);
+  console.log(`Successfully launched browser ${browserName}: ${version}`);
 
   return browser;
 }
