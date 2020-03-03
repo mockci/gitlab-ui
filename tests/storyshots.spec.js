@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import initStoryshots from '@storybook/addon-storyshots';
 import { imageSnapshot } from '@storybook/addon-storyshots-puppeteer';
 import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
+import puppeteer from 'puppeteer';
 import { getResetAnimationsCSS } from './test_utils';
 
 registerRequireContextHook();
@@ -38,6 +40,27 @@ const getMatchOptions = () => ({
   failureThresholdType: 'percent',
 });
 
+let browser;
+
+async function getCustomBrowser() {
+  browser = await puppeteer.launch({
+    args: ['--no-sandbox ', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+  });
+
+  const version = await browser.version();
+
+  console.log(`Successfully launched browser ${version}`);
+
+  return browser;
+}
+
+afterAll(async done => {
+  if (browser) {
+    await browser.close();
+  }
+  done();
+}, 15000);
+
 initStoryshots({
   suite: 'Image storyshots',
   storyKindRegex: new RegExp(`^((?!${excludedStoryKinds.join('|')}).+)`),
@@ -46,5 +69,6 @@ initStoryshots({
     beforeScreenshot,
     getGotoOptions,
     getMatchOptions,
+    getCustomBrowser,
   }),
 });
