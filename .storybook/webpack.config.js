@@ -89,6 +89,13 @@ module.exports = ({ config }) => {
 
   config.resolve.alias['@gitlab/ui'] = path.join(__dirname, '..', 'index.js');
 
+  // Ensure that `bootstrap-vue` is only imported from esm
+  config.resolve.alias['bootstrap-vue/src'] = path.join(
+    __dirname,
+    '..',
+    'node_modules/bootstrap-vue/esm'
+  );
+
   // disable HMR in test environment because this breaks puppeteer's networkidle0 setting
   // which is needed for storyshots to function
   if (process.env.NODE_ENV === 'test') {
