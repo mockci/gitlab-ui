@@ -8,7 +8,10 @@ import * as Babel from '@babel/standalone';
 import { parseComponent } from 'vue-template-compiler';
 
 import { html } from 'js-beautify';
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/highlight';
+import htmlLanguage from 'highlight.js/lib/languages/xml';
+import cssLanguage from 'highlight.js/lib/languages/css';
+import javascriptLanguage from 'highlight.js/lib/languages/javascript';
 import 'highlight.js/styles/monokai.css';
 
 import copyToClipboard from 'copy-to-clipboard';
@@ -18,6 +21,10 @@ import { gitlabComponents } from '../all_components';
 import * as Documentation from '../components_documentation';
 
 import JsfiddleButton from './jsfiddle_button.vue';
+
+hljs.registerLanguage('html', htmlLanguage);
+hljs.registerLanguage('css', cssLanguage);
+hljs.registerLanguage('javascript', javascriptLanguage);
 
 // We need to register globally all components as we don't know the components that are used in the dynamically compiled .example.vue files
 // This is only for design.gitlab.com and shouldn't be done in our actual application
