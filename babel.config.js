@@ -3,7 +3,7 @@ module.exports = api => {
   const babelPresetEnv = ['@babel/preset-env', { modules: false, targets: { ie: 11 } }];
   const config = {
     presets: [babelPresetEnv],
-    plugins: [],
+    plugins: ['lodash'],
   };
 
   // storybook and visual regression tests
