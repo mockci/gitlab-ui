@@ -85,6 +85,9 @@ module.exports = ({ config }) => {
     })
   );
 
+  // Ignore all moment locale execpt the default english
+  config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
+
   config.resolve.extensions = ['.css', ...config.resolve.extensions];
 
   config.resolve.alias['@gitlab/ui'] = path.join(__dirname, '..', 'index.js');
