@@ -6,6 +6,8 @@ const sassLoaderOptions = {
   includePaths: [require('path').resolve(__dirname, '..', 'node_modules')],
 };
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = ({ config }) => {
   config.module.rules = [
     {
@@ -93,6 +95,11 @@ module.exports = ({ config }) => {
     config.entry = config.entry.filter(
       singleEntry => !singleEntry.includes('/webpack-hot-middleware/')
     );
+  }
+
+  // Generate bundle analysis during the compilation of the GitLab UI page
+  if (process.env.CI && process.env.NODE_ENV !== 'test') {
+    config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static', openAnalyzer: false }));
   }
 
   // Filter out the progress plugin on CI, as it is very verbose
