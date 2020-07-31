@@ -1,5 +1,6 @@
 // Component documentation
 // ADD EXPORTS - needed for yarn generate:component. Do not remove
+export { default as GlTooltipOnTruncateDocumentation } from '../src/components/utilities/tooltip_on_truncate/tooltip_on_truncate.documentation';
 export { default as GlFormTextDocumentation } from '../src/components/base/form/form_text/form_text.documentation';
 export { default as GlFormComboboxDocumentation } from '../src/components/base/form/form_combobox/form_combobox.documentation';
 export { default as GlTokenSelectorDocumentation } from '../src/components/base/token_selector/token_selector.documentation';
