@@ -8,8 +8,6 @@ export default {
       this.clicks += 1;
     },
   },
-  template: `
-    `,
 };
 </script>
 
