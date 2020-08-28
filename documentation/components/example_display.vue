@@ -34,6 +34,7 @@ Vue.directive('gl-modal-directive', gitlabComponents.GlModalDirective);
 Vue.directive('gl-resize-observer-directive', gitlabComponents.GlResizeObserverDirective);
 Vue.directive('gl-safe-html-directive', gitlabComponents.GlSafeHtmlDirective);
 Vue.directive('gl-collapse-toggle', gitlabComponents.GlCollapseToggleDirective);
+Vue.directive('gl-off-click', gitlabComponents.GlOffClickDirective);
 
 function findComponentExample(exampleName) {
   /* eslint-disable no-restricted-syntax */

@@ -84,6 +84,7 @@ export { default as GlSegmentedControlDocumentation } from '../src/components/ba
 export { default as GlSkeletonLoaderDocumentation } from '../src/components/base/skeleton_loader/skeleton_loader.documentation';
 export { default as GlDrawerDocumentation } from '../src/components/base/drawer/drawer.documentation';
 export { default as GlCardDocumentation } from '../src/components/base/card/card.documentation';
+export { default as GlOffClickDirectiveDocumentation } from '../src/directives/off_click/off_click.documentation';
 export { default as GlResizeObserverDirectiveDocumentation } from '../src/directives/resize_observer/resize_observer.documentation';
 export { default as GlBannerDocumentation } from '../src/components/base/banner/banner.documentation';
 export { default as GlFilteredSearchSuggestionDocumentation } from '../src/components/base/filtered_search/filtered_search_suggestion.documentation';
