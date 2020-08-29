@@ -8,6 +8,7 @@ import {
 } from '../../../utils/constants';
 
 export default {
+  name: 'GlAlert',
   components: {
     GlIcon,
     GlButton,
@@ -34,21 +35,33 @@ export default {
       default: alertVariantOptions.info,
       validator: value => Object.keys(alertVariantOptions).includes(value),
     },
+    /**
+     * If provided, renders the primary button as a link.
+     */
     primaryButtonLink: {
       type: String,
       required: false,
       default: '',
     },
+    /**
+     * If provided, renders a primary action button.
+     */
     primaryButtonText: {
       type: String,
       required: false,
       default: '',
     },
+    /**
+     * If provided, renders the secondary button as a link.
+     */
     secondaryButtonLink: {
       type: String,
       required: false,
       default: '',
     },
+    /**
+     * If provided, renders a secondary action button.
+     */
     secondaryButtonText: {
       type: String,
       required: false,
@@ -104,12 +117,30 @@ export default {
   },
   methods: {
     primaryButtonClicked(event) {
+      /**
+       * Emitted when the primary action button is clicked.
+       *
+       * @event primaryAction
+       * @type {object}
+       */
       this.$emit('primaryAction', event);
     },
     secondaryButtonClicked(event) {
+      /**
+       * Emitted when the secondary action button is clicked.
+       *
+       * @event secondaryAction
+       * @type {object}
+       */
       this.$emit('secondaryAction', event);
     },
     onDismiss() {
+      /**
+       * Emitted when the dismiss button is clicked.
+       *
+       * @event dismiss
+       * @type {object}
+       */
       this.$emit('dismiss');
     },
   },
@@ -137,10 +168,12 @@ export default {
     <h4 v-if="title" class="gl-alert-title">{{ title }}</h4>
 
     <div class="gl-alert-body">
+      <!-- @slot The alert message to display. -->
       <slot></slot>
     </div>
 
     <div v-if="shouldRenderActions" class="gl-alert-actions">
+      <!-- @slot If the primary/secondary action buttons aren't flexible enough, place arbitrary content here. -->
       <slot name="actions">
         <gl-button
           v-for="(actionButton, index) in actionButtons"

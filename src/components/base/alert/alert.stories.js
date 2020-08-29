@@ -1,12 +1,7 @@
-import { withKnobs, boolean, text, select } from '@storybook/addon-knobs/vue';
-import { documentedStoriesOf } from '../../../../documentation/documented_stories';
+import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
 import { alertVariantOptions } from '../../../utils/constants';
-import readme from './alert.md';
-import { GlAlert } from '../../../../index';
-
-const components = {
-  GlAlert,
-};
+import mdx from './alert.mdx';
+import GlAlert from './alert.vue';
 
 const template = `
   <gl-alert
@@ -72,29 +67,35 @@ function generateProps({
   };
 }
 
-documentedStoriesOf('base|alert', readme)
-  .addDecorator(withKnobs)
-  .add('default', () => ({
-    components,
-    props: generateProps(),
-    template,
-  }))
-  .add('titled warning', () => ({
-    components,
-    props: generateProps({
-      title: 'A warning',
-      variant: alertVariantOptions.warning,
-    }),
-    template,
-  }))
-  .add('undismissible danger with actions', () => ({
-    components,
-    props: generateProps({
-      variant: alertVariantOptions.danger,
-      dismissible: false,
-      primaryButtonText: 'Primary action',
-      secondaryButtonText: 'Secondary action',
-      secondaryButtonLink: '#',
-    }),
-    template,
-  }));
+export default {
+  title: 'base|alert',
+  component: GlAlert,
+  decorators: [withKnobs],
+  parameters: {
+    docs: { page: mdx },
+  },
+};
+
+export const Default = () => ({
+  template,
+  props: generateProps(),
+});
+
+export const TitledWarning = () => ({
+  template,
+  props: generateProps({
+    title: 'A warning',
+    variant: alertVariantOptions.warning,
+  }),
+});
+
+export const UndismissibleDangerWithActions = () => ({
+  template,
+  props: generateProps({
+    variant: alertVariantOptions.danger,
+    dismissible: false,
+    primaryButtonText: 'Primary action',
+    secondaryButtonText: 'Secondary action',
+    secondaryButtonLink: '#',
+  }),
+});
