@@ -22,6 +22,7 @@ const testableStories = (process.env.IS_GITLAB_INTEGRATION_TEST
 module.exports = {
   stories: testableStories,
   addons: [
+    '@storybook/addon-docs',
     '@storybook/addon-knobs',
     '@storybook/addon-a11y',
     '@storybook/addon-viewport/register',

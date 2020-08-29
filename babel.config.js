@@ -16,6 +16,7 @@ module.exports = api => {
     // tests are run in a node environment, not a browser
     babelPresetEnv[1] = { targets: { node: 'current' } };
     config.plugins.push('require-context-hook');
+    config.plugins.push('@babel/plugin-transform-react-jsx');
   }
 
   return config;

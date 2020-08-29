@@ -19,6 +19,7 @@ addDecorator(addSbClass);
 addDecorator(withA11y);
 
 addParameters({
+  docs: { inlineStories: true },
   a11y: {
     element: '.story-container',
   },

@@ -9,6 +9,24 @@ const sassLoaderOptions = {
 module.exports = ({ config }) => {
   config.module.rules = [
     {
+      test: /\.mdx$/,
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['@babel/plugin-transform-react-jsx'],
+          },
+        },
+        '@mdx-js/loader',
+      ],
+    },
+    {
+      test: /src\/components\/.*\.vue$/,
+      loader: 'vue-docgen-loader',
+      enforce: 'post',
+      exclude: /\.example\.vue$/,
+    },
+    {
       test: /\.(md|html)$/,
       loader: 'raw-loader',
     },
