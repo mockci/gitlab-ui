@@ -21,6 +21,11 @@ module.exports = ({ config }) => {
       ],
     },
     {
+      test: /\.stories\.js$/,
+      loader: '@storybook/addon-storysource/loader',
+      enforce: 'pre',
+    },
+    {
       test: /src\/components\/.*\.vue$/,
       loader: 'vue-docgen-loader',
       enforce: 'post',

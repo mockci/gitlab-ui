@@ -23,6 +23,7 @@ module.exports = {
   stories: testableStories,
   addons: [
     '@storybook/addon-docs',
+    '@storybook/addon-storysource',
     '@storybook/addon-knobs',
     '@storybook/addon-a11y',
     '@storybook/addon-viewport/register',
