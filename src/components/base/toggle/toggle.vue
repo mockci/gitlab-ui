@@ -17,6 +17,10 @@ export default {
       required: false,
       default: null,
     },
+    /**
+     * Toggle's state
+     * @model
+     */
     value: {
       type: Boolean,
       required: false,
@@ -68,7 +72,12 @@ export default {
 
   methods: {
     toggleFeature() {
-      if (!this.disabled) this.$emit('change', !this.value);
+      if (!this.disabled) {
+        /**
+         * Emitted when the toggle's state changes
+         */
+        this.$emit('change', !this.value);
+      }
     },
   },
 };
