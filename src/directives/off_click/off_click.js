@@ -1,5 +1,7 @@
+import { getEventLikeTimeStamp } from './get_event_like_time_stamp';
+
 /**
- * Map<HTMLElement, Function>
+ * Map<HTMLElement, { bindTimeStamp: number, callback: Function }>
  */
 const callbacks = new Map();
 
@@ -9,9 +11,13 @@ const callbacks = new Map();
 let listening = false;
 
 const globalListener = event => {
-  callbacks.forEach((callback, element) => {
-    if (element.contains(event.target)) {
+  callbacks.forEach(({ bindTimeStamp, callback }, element) => {
+    if (
       // Ignore events that aren't off-element
+      element.contains(event.target) ||
+      // Only consider events triggered after the directive was bound
+      event.timeStamp <= bindTimeStamp
+    ) {
       return;
     }
 
@@ -59,7 +65,10 @@ const bind = (el, { value }) => {
     startListening();
   }
 
-  callbacks.set(el, value);
+  callbacks.set(el, {
+    bindTimeStamp: getEventLikeTimeStamp(),
+    callback: value,
+  });
 };
 
 const unbind = el => {
