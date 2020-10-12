@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const sassLoaderOptions = {
   includePaths: [require('path').resolve(__dirname, '..', 'node_modules')],
@@ -32,7 +33,7 @@ module.exports = ({ config }) => {
     },
     {
       test: /\.s?css$/,
-      exclude: /typescale\/\w+_demo\.scss$/, // skip typescale demo stylesheets
+      exclude: /(typescale\/\w+_demo\.scss)$/, // skip typescale demo stylesheets
       loaders: [
         {
           loader: 'style-loader',
@@ -83,7 +84,9 @@ module.exports = ({ config }) => {
     })
   );
 
-  config.resolve.extensions = ['.css', ...config.resolve.extensions];
+  if (process.env.WEBPACK_REPORT) {
+    config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
+  }
 
   config.resolve.alias['@gitlab/ui'] = path.join(__dirname, '..', 'index.js');
 
