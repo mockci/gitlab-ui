@@ -68,6 +68,10 @@
       }
     }
 
+    &[class*='-secondary'] {
+      margin-left: -1px;
+    }
+
     &.gl-button {
       @include gl-px-3;
     }

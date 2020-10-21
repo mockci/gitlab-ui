@@ -33,7 +33,7 @@ function addClass(component) {
 }
 
 function generateProps({
-  category = newButtonCategoryOptions.tertiary,
+  category = newButtonCategoryOptions.primary,
   variant = newDropdownVariantOptions.default,
   size = newButtonSizeOptions.medium,
   block = false,

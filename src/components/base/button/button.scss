@@ -378,13 +378,15 @@
     }
   }
 
-  &.btn-dashed {
+  &.btn-dashed,
+  &.btn-dashed-tertiary {
     @include gl-inset-border-1-gray-400;
     @include gl-bg-white;
     outline: 3px dotted $white;
     outline-offset: (-$gl-border-size-1);
 
     &:hover {
+      @include gl-inset-border-1-gray-400;
       @include gl-bg-gray-50;
     }
 

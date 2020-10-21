@@ -71,7 +71,9 @@ describe('new dropdown', () => {
         .classes()
         .sort();
 
-      expect(classes).toEqual([...DEFAULT_BTN_CLASSES, ...splitClasses].sort());
+      expect(classes).toEqual(
+        expect.arrayContaining([...DEFAULT_BTN_CLASSES, ...splitClasses].sort())
+      );
     });
 
     it('updates dropdown toggle button classes', () => {
@@ -80,7 +82,9 @@ describe('new dropdown', () => {
         .sort();
 
       expect(classes).toEqual(
-        [...DEFAULT_BTN_TOGGLE_CLASSES, 'dropdown-toggle-split', ...toggleClasses].sort()
+        expect.arrayContaining(
+          [...DEFAULT_BTN_TOGGLE_CLASSES, 'dropdown-toggle-split', ...toggleClasses].sort()
+        )
       );
     });
   });
@@ -101,7 +105,7 @@ describe('new dropdown', () => {
         .classes()
         .sort();
 
-      expect(classes).toEqual([...DEFAULT_BTN_TOGGLE_CLASSES].sort());
+      expect(classes).toEqual(expect.arrayContaining([...DEFAULT_BTN_TOGGLE_CLASSES].sort()));
     });
   });
 
@@ -122,7 +126,7 @@ describe('new dropdown', () => {
         findSplitButton()
           .classes()
           .sort()
-      ).toEqual([...DEFAULT_BTN_CLASSES, 'split-content-button']);
+      ).toEqual(expect.arrayContaining([...DEFAULT_BTN_CLASSES, 'split-content-button']));
     });
   });
 
@@ -144,7 +148,7 @@ describe('new dropdown', () => {
         findDropdownToggle()
           .classes()
           .sort()
-      ).toEqual(expectedClasses.sort());
+      ).toEqual(expect.arrayContaining(expectedClasses.sort()));
     });
   });
 

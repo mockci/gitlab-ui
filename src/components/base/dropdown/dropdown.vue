@@ -121,7 +121,11 @@ export default {
         {
           'gl-button': true,
           'gl-dropdown-toggle': true,
-          [`btn-${this.variant}-secondary`]: this.category === 'secondary',
+          [`btn-${this.variant}-secondary`]:
+            this.category === newButtonCategoryOptions.secondary ||
+            (this.category === newButtonCategoryOptions.tertiary && this.split),
+          [`btn-${this.variant}-tertiary`]:
+            this.category === newButtonCategoryOptions.tertiary && !this.split,
           'dropdown-icon-only': !this.text?.length && this.icon,
           'dropdown-icon-text': this.text?.length && this.icon,
         },
@@ -129,10 +133,14 @@ export default {
     },
     splitButtonClasses() {
       return [
-        'gl-button',
+        this.toggleClass,
         {
+          'gl-button': true,
           'split-content-button': Boolean(this.text),
           'icon-split-content-button': Boolean(this.icon),
+          [`btn-${this.variant}-secondary`]:
+            this.category === newButtonCategoryOptions.secondary ||
+            this.category === newButtonCategoryOptions.tertiary,
         },
       ];
     },
