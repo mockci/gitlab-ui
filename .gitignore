@@ -7,6 +7,7 @@
 .idea
 .vscode
 .DS_Store
+.history
 yarn-error.log
 /src/scss/utilities.scss
 /static/gitlab/
