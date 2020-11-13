@@ -168,7 +168,7 @@ documentedStoriesOf('base|dropdown', readme)
     props: generateProps({ text: 'Some dropdown' }),
     components,
     template: wrap`
-      <gl-dropdown-form>
+      <gl-dropdown-form class="gl-px-4">
         <gl-button>One</gl-button>
         <gl-button>Two</gl-button>
         <gl-button>Three</gl-button>
