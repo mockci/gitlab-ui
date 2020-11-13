@@ -60,21 +60,37 @@
     }
 
     &:hover {
-      @include gl-tmp-button-hover($gray-300, $gray-50);
+      @include gl-tmp-button-hover($gray-400, $gray-50);
+
+      .gl-icon {
+        @include gl-text-gray-700;
+      }
     }
 
     &:focus {
-      @include gl-focus($gl-border-size-2, $gray-300);
+      @include gl-focus($gl-border-size-2, $gray-400);
       @include gl-bg-gray-50;
+
+      .gl-icon {
+        @include gl-text-gray-700;
+      }
     }
 
     &:active,
     &.active {
-      @include gl-focus($gl-border-size-2, $gray-400);
+      @include gl-focus($gl-border-size-2, $gray-600);
       @include gl-bg-gray-100;
 
+      .gl-icon {
+        @include gl-text-gray-900;
+      }
+
       &:focus {
-        @include gl-focus($gl-border-size-2, $gray-400);
+        @include gl-focus($gl-border-size-2, $gray-600);
+
+        .gl-icon {
+          @include gl-text-gray-900;
+        }
       }
     }
 
@@ -95,19 +111,19 @@
     }
 
     &:hover {
-      box-shadow: inset 0 0 0 $gl-border-size-2 $gray-300,
+      box-shadow: inset 0 0 0 $gl-border-size-2 $gray-400,
         inset 0 $gl-border-size-4 $gl-border-size-4 $gray-200;
     }
 
     &:focus {
-      box-shadow: inset 0 0 0 $gl-border-size-2 $gray-300,
+      box-shadow: inset 0 0 0 $gl-border-size-2 $gray-400,
         inset 0 $gl-border-size-4 $gl-border-size-4 $gray-200, $focus-ring;
     }
 
     &:active,
     &:active:focus {
       @include gl-bg-gray-100;
-      box-shadow: inset 0 0 0 $gl-border-size-2 $gray-400,
+      box-shadow: inset 0 0 0 $gl-border-size-2 $gray-600,
         inset 0 $gl-border-size-4 $gl-border-size-4 $gray-200, $focus-ring;
     }
   }
@@ -151,24 +167,24 @@
     @include gl-inset-border-1-blue-500;
 
     &:hover {
-      @include gl-text-blue-600;
-      @include gl-tmp-button-hover($blue-600, $blue-50);
+      @include gl-text-blue-700;
+      @include gl-tmp-button-hover($blue-700, $blue-50);
     }
 
     &:focus {
-      @include gl-text-blue-600;
-      @include gl-focus($gl-border-size-2, $blue-600);
+      @include gl-text-blue-700;
+      @include gl-focus($gl-border-size-2, $blue-700);
       @include gl-bg-blue-50;
     }
 
     &:active,
     &.active {
-      @include gl-text-blue-700;
-      @include gl-focus($gl-border-size-2, $blue-700);
+      @include gl-text-blue-900;
+      @include gl-focus($gl-border-size-2, $blue-900);
       @include gl-bg-blue-100;
 
       &:focus {
-        @include gl-focus($gl-border-size-2, $blue-700);
+        @include gl-focus($gl-border-size-2, $blue-900);
       }
     }
   }
@@ -205,24 +221,24 @@
     @include gl-inset-border-1-green-500;
 
     &:hover {
-      @include gl-text-green-600;
-      @include gl-tmp-button-hover($green-600, $green-50);
+      @include gl-text-green-700;
+      @include gl-tmp-button-hover($green-700, $green-50);
     }
 
     &:focus {
-      @include gl-text-green-600;
-      @include gl-focus($gl-border-size-2, $green-600);
+      @include gl-text-green-700;
+      @include gl-focus($gl-border-size-2, $green-700);
       @include gl-bg-green-50;
     }
 
     &:active,
     &.active {
-      @include gl-text-green-700;
-      @include gl-focus($gl-border-size-2, $green-700);
+      @include gl-text-green-900;
+      @include gl-focus($gl-border-size-2, $green-900);
       @include gl-bg-green-100;
 
       &:focus {
-        @include gl-focus($gl-border-size-2, $green-700);
+        @include gl-focus($gl-border-size-2, $green-900);
       }
     }
   }
@@ -259,24 +275,24 @@
     @include gl-inset-border-1-orange-500;
 
     &:hover {
-      @include gl-text-orange-600;
-      @include gl-tmp-button-hover($orange-600, $orange-50);
+      @include gl-text-orange-700;
+      @include gl-tmp-button-hover($orange-700, $orange-50);
     }
 
     &:focus {
-      @include gl-text-orange-600;
-      @include gl-focus($gl-border-size-2, $orange-600);
+      @include gl-text-orange-700;
+      @include gl-focus($gl-border-size-2, $orange-700);
       @include gl-bg-orange-50;
     }
 
     &:active,
     &.active {
-      @include gl-text-orange-700;
-      @include gl-focus($gl-border-size-2, $orange-700);
+      @include gl-text-orange-900;
+      @include gl-focus($gl-border-size-2, $orange-900);
       @include gl-bg-orange-100;
 
       &:focus {
-        @include gl-focus($gl-border-size-2, $orange-700);
+        @include gl-focus($gl-border-size-2, $orange-900);
       }
     }
   }
@@ -313,24 +329,24 @@
     @include gl-inset-border-1-red-500;
 
     &:hover {
-      @include gl-text-red-600;
-      @include gl-tmp-button-hover($red-600, $red-50);
+      @include gl-text-red-700;
+      @include gl-tmp-button-hover($red-700, $red-50);
     }
 
     &:focus {
-      @include gl-text-red-600;
-      @include gl-focus($gl-border-size-2, $red-600);
+      @include gl-text-red-700;
+      @include gl-focus($gl-border-size-2, $red-700);
       @include gl-bg-red-50;
     }
 
     &:active,
     &.active {
-      @include gl-text-red-700;
-      @include gl-focus($gl-border-size-2, $red-700);
+      @include gl-text-red-900;
+      @include gl-focus($gl-border-size-2, $red-900);
       @include gl-bg-red-100;
 
       &:focus {
-        @include gl-focus($gl-border-size-2, $red-700);
+        @include gl-focus($gl-border-size-2, $red-900);
       }
     }
   }
@@ -396,13 +412,13 @@
 
     &:active,
     &.active {
-      @include gl-focus($gl-border-size-1, $gray-500);
+      @include gl-focus($gl-border-size-1, $gray-600);
       outline: 3px dotted $gray-100;
       outline-offset: (-$gl-border-size-1);
       @include gl-bg-gray-100;
 
       &:focus {
-        @include gl-focus($gl-border-size-1, $gray-500);
+        @include gl-focus($gl-border-size-1, $gray-600);
         outline: 3px dotted $gray-100;
         outline-offset: (-$gl-border-size-1);
       }
