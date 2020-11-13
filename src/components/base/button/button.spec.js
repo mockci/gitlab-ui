@@ -30,14 +30,35 @@ describe('button component', () => {
   });
 
   describe('label button', () => {
-    beforeEach(() => {
-      buildWrapper({
-        label: true,
+    describe('default', () => {
+      beforeEach(() => {
+        buildWrapper({
+          label: true,
+        });
+      });
+
+      it('renders as a span', () => {
+        expect(wrapper.element.tagName).toBe('SPAN');
+      });
+
+      it('should add `btn` and `btn-label` classes', () => {
+        const classes = wrapper.classes();
+        expect(classes).toContain('btn');
+        expect(classes).toContain('btn-label');
       });
     });
 
-    it('should add `btn-label` class', () => {
-      expect(wrapper.classes()).toContain('btn-label');
+    it.each`
+      size         | expectedClass
+      ${undefined} | ${'btn-md'}
+      ${'small'}   | ${'btn-sm'}
+    `('applies $expectedClass class when size is $size', ({ size, expectedClass }) => {
+      buildWrapper({
+        label: true,
+        size,
+      });
+
+      expect(wrapper.classes()).toContain(expectedClass);
     });
   });
 

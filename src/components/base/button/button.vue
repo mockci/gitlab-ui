@@ -91,9 +91,12 @@ export default {
       classes.push({
         'btn-icon': this.hasIconOnly,
         'button-ellipsis-horizontal': this.hasIconOnly && this.icon === 'ellipsis_h',
-        'btn-label': this.label,
         selected: this.selected,
       });
+
+      if (this.label) {
+        classes.push('btn', 'btn-label', `btn-${this.buttonSize}`);
+      }
 
       return classes;
     },
@@ -104,7 +107,8 @@ export default {
 };
 </script>
 <template>
-  <b-button
+  <component
+    :is="label ? 'span' : 'b-button'"
     v-bind="$attrs"
     :rel="relType"
     :target="target"
@@ -118,5 +122,5 @@ export default {
     <gl-icon v-if="hasIcon && !(hasIconOnly && loading)" class="gl-button-icon" :name="icon" />
     <slot name="emoji"></slot>
     <span v-if="!hasIconOnly" :class="buttonTextClasses" class="gl-button-text"><slot></slot></span>
-  </b-button>
+  </component>
 </template>
