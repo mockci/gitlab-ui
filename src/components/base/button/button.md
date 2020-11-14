@@ -16,7 +16,7 @@ with the necessary classes added to make it look like a button, it shares the sa
 ## Label button
 
 A label button renders a `span` styled as a button. This can be especially useful when used in a
-button group to render text-only labels along with actionable buttons. To improve accessibility, and when applicable, consider using [`aria-labelledby`] to establish a
+button group to render text-only labels along with actionable buttons. To improve accessibility, and when applicable, consider using [`aria-describedby`] to establish a
 relationship between the label button and the associated button.
 
-[`aria-labelledby`]: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute
+[`aria-describedby`]: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute
