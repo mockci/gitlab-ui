@@ -1,38 +1,34 @@
-import { mount } from '@vue/test-utils';
-
+import { shallowMount } from '@vue/test-utils';
+import { BTab } from 'bootstrap-vue';
 import GlTab from './tab.vue';
 
-const DEFAULT_TITLE_LINK_CLASS = 'gl-tab-nav-item';
+import { DEFAULT_TAB_TITLE_LINK_CLASS } from '../constants';
 
-describe('Tab', () => {
+describe('Tab component', () => {
   let wrapper;
 
-  const createComponent = ({ props = {} } = {}) => {
-    wrapper = mount(GlTab, {
-      propsData: {
-        ...props,
-      },
+  const createComponent = options => {
+    wrapper = shallowMount(GlTab, {
+      ...options,
     });
   };
 
-  afterEach(() => wrapper.destroy());
+  it.each`
+    titleLinkClass                  | expectedProp
+    ${'additional-class'}           | ${`additional-class ${DEFAULT_TAB_TITLE_LINK_CLASS}`}
+    ${['additional-class']}         | ${['additional-class', DEFAULT_TAB_TITLE_LINK_CLASS]}
+    ${{ 'additional-class': true }} | ${{ 'additional-class': true, 'gl-tab-nav-item': true }}
+    ${undefined}                    | ${DEFAULT_TAB_TITLE_LINK_CLASS}
+  `(
+    'computed title link class is $expectedProp when titleLinkClass is $titleLinkClass',
+    ({ titleLinkClass, expectedProp }) => {
+      createComponent({
+        propsData: {
+          titleLinkClass,
+        },
+      });
 
-  describe.each`
-    titleLinkClass          | expectedTitleLinkClassProps | type
-    ${'my-class'}           | ${'my-class'}               | ${'string'}
-    ${{ 'my-class': true }} | ${{ 'my-class': true }}     | ${'object'}
-    ${['cls-1', 'cls-2']}   | ${['cls-1', 'cls-2']}       | ${'array'}
-    ${null}                 | ${null}                     | ${'null'}
-    ${undefined}            | ${DEFAULT_TITLE_LINK_CLASS} | ${'undefined'}
-  `('with title link classes', ({ titleLinkClass, expectedTitleLinkClassProps, type }) => {
-    beforeEach(async () => {
-      createComponent({ props: { titleLinkClass } });
-
-      await wrapper.vm.$nextTick();
-    });
-
-    it(`class is inherited from title link class of type ${type}`, () => {
-      expect(wrapper.props('titleLinkClass')).toEqual(expectedTitleLinkClassProps);
-    });
-  });
+      expect(wrapper.find(BTab).props('titleLinkClass')).toEqual(expectedProp);
+    }
+  );
 });

@@ -1,5 +1,6 @@
 <script>
 import { BTab } from 'bootstrap-vue';
+import { isString, isArray, isPlainObject } from 'lodash';
 
 export default {
   components: {
@@ -10,13 +11,30 @@ export default {
     titleLinkClass: {
       type: [String, Array, Object],
       required: false,
-      default: 'gl-tab-nav-item',
+      default: null,
+    },
+  },
+  computed: {
+    linkClass() {
+      const { titleLinkClass } = this;
+      const defaultClass = 'gl-tab-nav-item';
+
+      if (isString(titleLinkClass)) {
+        return `${titleLinkClass} ${defaultClass}`;
+      }
+      if (isArray(titleLinkClass)) {
+        return [...titleLinkClass, defaultClass];
+      }
+      if (isPlainObject(titleLinkClass)) {
+        return { ...titleLinkClass, [defaultClass]: true };
+      }
+      return defaultClass;
     },
   },
 };
 </script>
 <template>
-  <b-tab :title-link-class="titleLinkClass" v-bind="$attrs" v-on="$listeners">
+  <b-tab :title-link-class="linkClass" v-bind="$attrs" v-on="$listeners">
     <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot"></slot>
   </b-tab>
 </template>
